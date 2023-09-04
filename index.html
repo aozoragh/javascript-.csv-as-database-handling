@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery</title>
+  </head>
+  <body onload="displayData()">
+    <div>
+      <input id="csv_file" type="file" />
+      <div class="all_car_gallery"></div>
+    </div>
+  </body>
+  <script>
+    function displayData() {
+      const fileInput = document.getElementById("csv_file");
+
+      fileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (event) => {
+          const fileContents = event.target.result;
+          var data = fileContents.split("\n"); // split by lines
+          for (var row in data) data[row] = data[row].split(";"); // split all lines by comas
+
+          console.log("File contents:", data);
+        };
+
+        reader.readAsText(file);
+      });
+    }
+  </script>
+</html>
